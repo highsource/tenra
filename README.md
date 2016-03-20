@@ -41,5 +41,5 @@ java -jar tenra-<VERSION>.jar DB-Netz_INSPIRE_20131128.xml
 * The original DB Netz INSPIRE dataset is published under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license
 * The resulting files will fall under the same [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license
   * Don't forget the attribution:  
-  >  You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+  **You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.**
 * Tenra (this project) is published under the [MIT License](https://raw.githubusercontent.com/highsource/tenra/master/LICENSE)
