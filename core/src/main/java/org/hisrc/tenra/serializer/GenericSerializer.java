@@ -21,8 +21,7 @@ public class GenericSerializer implements Serializer<Object> {
 	private final Serializer<MarkerPost> markerPostSerializer;
 
 	public GenericSerializer(Serializer<RailwayNode> railwayNodeSerializer,
-			Serializer<RailwayLink> railwayLinkSerializer,
-			Serializer<RailwayStationNode> railwayStationNodeSerializer,
+			Serializer<RailwayLink> railwayLinkSerializer, Serializer<RailwayStationNode> railwayStationNodeSerializer,
 			Serializer<RailwayLine> railwayLineSerializer,
 			Serializer<RailwayLinkSequence> railwayLinkSequenceSerializer,
 			Serializer<MarkerPost> markerPostSerializer) {
@@ -63,23 +62,20 @@ public class GenericSerializer implements Serializer<Object> {
 	@Override
 	public void serialize(Object value) throws IOException {
 		Validate.notNull(value);
-		if (value instanceof RailwayNode) {
-			this.railwayNodeSerializer.serialize((RailwayNode) value);
-		} else if (value instanceof RailwayLink) {
+		if (value instanceof RailwayLink) {
 			this.railwayLinkSerializer.serialize((RailwayLink) value);
 		} else if (value instanceof RailwayStationNode) {
-			this.railwayStationNodeSerializer
-					.serialize((RailwayStationNode) value);
+			this.railwayStationNodeSerializer.serialize((RailwayStationNode) value);
+		} else if (value instanceof RailwayNode) {
+			this.railwayNodeSerializer.serialize((RailwayNode) value);
 		} else if (value instanceof RailwayLine) {
 			this.railwayLineSerializer.serialize((RailwayLine) value);
 		} else if (value instanceof RailwayLinkSequence) {
-			this.railwayLinkSequenceSerializer
-					.serialize((RailwayLinkSequence) value);
+			this.railwayLinkSequenceSerializer.serialize((RailwayLinkSequence) value);
 		} else if (value instanceof MarkerPost) {
 			this.markerPostSerializer.serialize((MarkerPost) value);
 		} else {
-			throw new IllegalArgumentException(MessageFormat.format(
-					"Unexpected class [{0}].", value.getClass()));
+			throw new IllegalArgumentException(MessageFormat.format("Unexpected class [{0}].", value.getClass()));
 		}
 	}
 
