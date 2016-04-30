@@ -1,25 +1,5 @@
 package org.hisrc.tenra.builder;
 
-import inspire.x.specification.gmlas.commontransportelements._3.ConditionOfFacilityType;
-import inspire.x.specification.gmlas.commontransportelements._3.MaintenanceAuthorityType;
-import inspire.x.specification.gmlas.commontransportelements._3.MarkerPostType;
-import inspire.x.specification.gmlas.commontransportelements._3.OwnerAuthorityType;
-import inspire.x.specification.gmlas.commontransportelements._3.TrafficFlowDirectionType;
-import inspire.x.specification.gmlas.commontransportelements._3.VerticalPositionType;
-import inspire.x.specification.gmlas.network._3.NetworkType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.DesignSpeedType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.NominalTrackGaugeType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.NumberOfTracksType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayElectrificationType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayLineType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayLinkSequenceType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayLinkType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayNodeType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayStationCodeType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayStationNodeType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayTypeType;
-import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayUseType;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +28,26 @@ import org.hisrc.tenra.model.RailwayNode;
 import org.hisrc.tenra.model.RailwayStationCode;
 import org.hisrc.tenra.model.RailwayStationNode;
 import org.hisrc.tenra.util.Ensure;
+
+import inspire.x.specification.gmlas.commontransportelements._3.ConditionOfFacilityType;
+import inspire.x.specification.gmlas.commontransportelements._3.MaintenanceAuthorityType;
+import inspire.x.specification.gmlas.commontransportelements._3.MarkerPostType;
+import inspire.x.specification.gmlas.commontransportelements._3.OwnerAuthorityType;
+import inspire.x.specification.gmlas.commontransportelements._3.TrafficFlowDirectionType;
+import inspire.x.specification.gmlas.commontransportelements._3.VerticalPositionType;
+import inspire.x.specification.gmlas.network._3.NetworkType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.DesignSpeedType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.NominalTrackGaugeType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.NumberOfTracksType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayElectrificationType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayLineType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayLinkSequenceType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayLinkType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayNodeType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayStationCodeType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayStationNodeType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayTypeType;
+import inspire.x.specification.gmlas.railwaytransportnetwork._3.RailwayUseType;
 
 public class ModelBuilder {
 
@@ -106,17 +106,19 @@ public class ModelBuilder {
 	}
 
 	private final Map<String, RailwayNode> railwayNodes = new HashMap<String, RailwayNode>();
+	private final Map<String, RailwayNode> railwayAndStationNodes = new HashMap<String, RailwayNode>();
 	private final Map<String, String> railwayLinkStartingRailwayNodeIds = new HashMap<String, String>();
 	private final Map<String, String> railwayLinkEndingRailwayNodeIds = new HashMap<String, String>();
 
 	private void addRailwayNode(RailwayNodeType value) {
 		final RailwayNode railwayNode = RailwayNodeTypeConverter.INSTANCE.convert(value);
-		addRailwayNode(railwayNode);
+		railwayNodes.put(railwayNode.getId(), railwayNode);
+		addRailwayOrStationNode(railwayNode);
 	}
 
-	private void addRailwayNode(final RailwayNode railwayNode) {
+	private void addRailwayOrStationNode(final RailwayNode railwayNode) {
 		final String railwayNodeId = railwayNode.getId();
-		railwayNodes.put(railwayNodeId, railwayNode);
+		railwayAndStationNodes.put(railwayNodeId, railwayNode);
 		for (String spokeStartId : railwayNode.getSpokeStartIds()) {
 			Validate.notNull(spokeStartId);
 			String existingRailwayLinkStartingRailwayNodeId = railwayLinkStartingRailwayNodeIds.get(spokeStartId);
@@ -154,7 +156,7 @@ public class ModelBuilder {
 		final RailwayStationNode railwayStationNode = RailwayStationNodeTypeConverter.INSTANCE.convert(value);
 		final String railwayStationNodeId = railwayStationNode.getId();
 		railwayStationNodes.put(railwayStationNodeId, railwayStationNode);
-		addRailwayNode(railwayStationNode);
+		addRailwayOrStationNode(railwayStationNode);
 	}
 
 	private Map<String, RailwayStationCode> railwayStationCodes = new HashMap<>();
@@ -259,7 +261,7 @@ public class ModelBuilder {
 	}
 
 	private void buildRailwayNodes() {
-		for (RailwayNode railwayNode : this.railwayNodes.values()) {
+		for (RailwayNode railwayNode : this.railwayAndStationNodes.values()) {
 			String id = railwayNode.getId();
 			final List<RailwayLink> spokeStarts = new ArrayList<>(railwayNode.getSpokeStartIds().size());
 			final List<RailwayLink> spokeEnds = new ArrayList<>(railwayNode.getSpokeEndIds().size());
@@ -322,7 +324,7 @@ public class ModelBuilder {
 			railwayLink.setStartNodeId(startNodeId);
 			Ensure.propertyIsNotNull(startNodeId, railwayLink, "startNodeId");
 
-			final RailwayNode startNode = Ensure.mapContainsKey(this.railwayNodes, startNodeId, "railwayNodes");
+			final RailwayNode startNode = Ensure.mapContainsKey(this.railwayAndStationNodes, startNodeId, "railwayNodes");
 			railwayLink.setStartNode(startNode);
 
 			final String originalEndNodeId = railwayLink.getEndNodeId();
@@ -346,7 +348,7 @@ public class ModelBuilder {
 			railwayLink.setEndNodeId(endNodeId);
 			Ensure.propertyIsNotNull(endNodeId, railwayLink, "endNodeId");
 
-			final RailwayNode endNode = Ensure.mapContainsKey(this.railwayNodes, endNodeId, "railwayNodes");
+			final RailwayNode endNode = Ensure.mapContainsKey(this.railwayAndStationNodes, endNodeId, "railwayNodes");
 			railwayLink.setEndNode(endNode);
 		}
 	}
