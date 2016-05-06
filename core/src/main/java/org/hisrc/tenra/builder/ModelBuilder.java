@@ -240,9 +240,9 @@ public class ModelBuilder {
 		buildRailwayNodes();
 		buildRailwayStationNodes();
 		buildRailwayStationCodes();
-		buildRailwayLinks();
 		buildRailwayLines();
 		buildRailwayLinkSequences();
+		buildRailwayLinks();
 		buildMarkerPosts();
 	}
 
@@ -262,7 +262,6 @@ public class ModelBuilder {
 
 	private void buildRailwayNodes() {
 		for (RailwayNode railwayNode : this.railwayAndStationNodes.values()) {
-			String id = railwayNode.getId();
 			final List<RailwayLink> spokeStarts = new ArrayList<>(railwayNode.getSpokeStartIds().size());
 			final List<RailwayLink> spokeEnds = new ArrayList<>(railwayNode.getSpokeEndIds().size());
 			for (String spokeStartId : railwayNode.getSpokeStartIds()) {
@@ -307,7 +306,8 @@ public class ModelBuilder {
 			final String railwayLinkStartingRailwayNodeId = railwayLinkStartingRailwayNodeIds.get(id);
 			final String startNodeId;
 			if (railwayLinkStartingRailwayNodeId != null) {
-				if (originalStartNodeId != null && !Objects.equals(originalStartNodeId, railwayLinkStartingRailwayNodeId)) {
+				if (originalStartNodeId != null
+						&& !Objects.equals(originalStartNodeId, railwayLinkStartingRailwayNodeId)) {
 					System.err.println(MessageFormat.format(
 							"Railway link {0} has starting node id {1}, but there is another node {2} starting this link.",
 							id, originalStartNodeId, railwayLinkStartingRailwayNodeId));
@@ -324,7 +324,8 @@ public class ModelBuilder {
 			railwayLink.setStartNodeId(startNodeId);
 			Ensure.propertyIsNotNull(startNodeId, railwayLink, "startNodeId");
 
-			final RailwayNode startNode = Ensure.mapContainsKey(this.railwayAndStationNodes, startNodeId, "railwayNodes");
+			final RailwayNode startNode = Ensure.mapContainsKey(this.railwayAndStationNodes, startNodeId,
+					"railwayNodes");
 			railwayLink.setStartNode(startNode);
 
 			final String originalEndNodeId = railwayLink.getEndNodeId();
@@ -334,8 +335,8 @@ public class ModelBuilder {
 				if (originalEndNodeId != null && !Objects.equals(originalEndNodeId, originalStartNodeId)
 						&& !Objects.equals(originalEndNodeId, railwayLinkEndingRailwayNodeId)) {
 					System.err.println(MessageFormat.format(
-							"Railway link {0} has ending node id {1}, but there is another node {2} ending this link.", id,
-							originalEndNodeId, railwayLinkEndingRailwayNodeId));
+							"Railway link {0} has ending node id {1}, but there is another node {2} ending this link.",
+							id, originalEndNodeId, railwayLinkEndingRailwayNodeId));
 				}
 				endNodeId = railwayLinkEndingRailwayNodeId;
 			} else if (originalEndNodeId != null) {
@@ -416,14 +417,16 @@ public class ModelBuilder {
 				// System.out.println("Dot product a:" + aDotProduct);
 				// System.out.println("Dot product b:" + bDotProduct);
 				if (aDotProduct < 0) {
-					System.out.println("First dot product is negative.");
+					System.out.println(
+							MessageFormat.format(
+							"First dot product is negative for marker post [{0}] with coordinates [{1}].", markerPost.getId(), markerPost.getCoordinates()));
 				}
 				if (bDotProduct < 0) {
-					System.out.println("Second dot product is negative.");
+					System.out.println(MessageFormat.format("Second dot product is negative for marker post [{0}] with coordinates [{1}].", markerPost.getId(), markerPost.getCoordinates()));
 				}
 				final Double distance = firstEntry.getKey();
 				if (distance >= 1.0e-6) {
-					System.out.println("Distance is greater than 1.0e-6:" + distance);
+					System.out.println(MessageFormat.format("Distance [{2}] is greater than 1.0e-6 for marker post [{0}] with coordinates [{1}].", markerPost.getId(), markerPost.getCoordinates(), distance));
 				}
 			}
 		}
