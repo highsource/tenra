@@ -30,14 +30,14 @@ public class RailwayNodeToJsonObjectConverter implements
 		properties.add("formOfNode", value.getFormOfNode());
 		final String geographicalName = value.getGeographicalName();
 		if (geographicalName != null) {
-			properties.add("geographicalName", geographicalName);
+			properties.add("name", geographicalName);
 		} else {
-			properties.addNull("geographicalName");
+			properties.addNull("name");
 		}
-		properties.add("spokeStartIds", StringsToJsonArrayConverter.INSTANCE
+		properties.add("sLinkIds", StringsToJsonArrayConverter.INSTANCE
 				.convert(value.getSpokeStartIds()));
 
-		properties.add("spokeEndIds", StringsToJsonArrayConverter.INSTANCE
+		properties.add("eLinkIds", StringsToJsonArrayConverter.INSTANCE
 				.convert(value.getSpokeEndIds()));
 
 		builder.add("properties", properties);

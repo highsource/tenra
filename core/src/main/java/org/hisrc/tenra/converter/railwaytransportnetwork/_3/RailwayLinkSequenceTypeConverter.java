@@ -55,10 +55,10 @@ public class RailwayLinkSequenceTypeConverter implements
 		final String id = CodeWithAuthorityTypeToStringConverter.INSTANCE
 				.convert(value.getIdentifier());
 		Ensure.propertyStartsWith(id, value, "identifier",
-				DBNetzConstants.ID_PREFIX);
+				DBNetzConstants.ID_COLON_PREFIX);
 		final String localId = IdentifierPropertyTypeToStringConverter.INSTANCE
 				.convert(value.getInspireId());
-		final String expectedLocalId = id.substring(DBNetzConstants.ID_PREFIX
+		final String expectedLocalId = id.substring(DBNetzConstants.ID_COLON_PREFIX
 				.length());
 		Ensure.propertyEquals(value.getId(), value, "id", localId);
 		Ensure.propertyEquals(value.getId(), value, "id", expectedLocalId);

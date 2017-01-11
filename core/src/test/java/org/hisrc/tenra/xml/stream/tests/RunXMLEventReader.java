@@ -10,15 +10,16 @@ import org.hisrc.tenra.builder.ModelBuilder;
 import org.hisrc.tenra.parser.Parser;
 import org.junit.Test;
 
-public class XMLEventReaderTest {
+public class RunXMLEventReader {
 
 	@Test
-	public void parse() throws XMLStreamException, IOException, JAXBException {
+	public void parses2016() throws XMLStreamException, IOException, JAXBException {
 		try (InputStream is = getClass().getResourceAsStream(
-				"/DB-Netz_INSPIRE_20131128.xml")) {
+				"/DB-Netz_INSPIRE_20160107.xml")) {
 			ModelBuilder builder = new ModelBuilder();
 			new Parser().parse(is, builder);
 			builder.build();
 		}
 	}
+	
 }

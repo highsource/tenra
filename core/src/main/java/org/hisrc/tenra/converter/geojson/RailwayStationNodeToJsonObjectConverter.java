@@ -28,13 +28,13 @@ public class RailwayStationNodeToJsonObjectConverter implements
 
 		properties.add("id", value.getId());
 		properties.add("formOfNode", value.getFormOfNode());
-		properties.add("railwayStationCode", value.getRailwayStationCode()
+		properties.add("code", value.getRailwayStationCode()
 				.getStationCode());
-		properties.add("geographicalName", value.getGeographicalName());
-		properties.add("spokeStartIds", StringsToJsonArrayConverter.INSTANCE
+		properties.add("name", value.getGeographicalName());
+		properties.add("sLinkIds", StringsToJsonArrayConverter.INSTANCE
 				.convert(value.getSpokeStartIds()));
 
-		properties.add("spokeEndIds", StringsToJsonArrayConverter.INSTANCE
+		properties.add("eLinkIds", StringsToJsonArrayConverter.INSTANCE
 				.convert(value.getSpokeEndIds()));
 
 		builder.add("properties", properties);

@@ -31,10 +31,10 @@ public class RailwayLinkSequenceToJsonObjectConverter implements
 		for (String railwayLinkId : value.getRailwayLinkIds()) {
 			railwayLinkIdsBuilder.add(railwayLinkId);
 		}
-		properties.add("railwayLinkIds", railwayLinkIdsBuilder.build());
-		properties.add("railwayLineId", value.getRailwayLineId());
-		properties.add("railwayLineCode", value.getRailwayLineCode());
-		properties.add("railwayLineGeographicalName",
+		properties.add("linkIds", railwayLinkIdsBuilder.build());
+		properties.add("lineId", value.getRailwayLineId());
+		properties.add("lineCode", value.getRailwayLineCode());
+		properties.add("lineName",
 				value.getRailwayLineGeographicalName());
 
 		

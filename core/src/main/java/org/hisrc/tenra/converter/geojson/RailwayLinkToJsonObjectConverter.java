@@ -29,23 +29,23 @@ public class RailwayLinkToJsonObjectConverter implements
 		properties.add("id", value.getId());
 		final String startNodeId = value.getStartNodeId();
 		if (startNodeId != null) {
-			properties.add("startNodeId", startNodeId);
+			properties.add("sNodeId", startNodeId);
 		} else {
-			properties.addNull("startNodeId");
+			properties.addNull("sNodeId");
 		}
 		final String endNodeId = value.getEndNodeId();
 		if (endNodeId != null) {
-			properties.add("endNodeId", endNodeId);
+			properties.add("eNodeId", endNodeId);
 		} else {
-			properties.addNull("endNodeId");
+			properties.addNull("eNodeId");
 		}
 
-		properties.add("railwayLineId", value.getRailwayLineId());
-		properties.add("railwayLineCode", value.getRailwayLineCode());
-		properties.add("railwayLineGeographicalName",
+		properties.add("lineId", value.getRailwayLineId());
+		properties.add("lineCode", value.getRailwayLineCode());
+		properties.add("lineName",
 				value.getRailwayLineGeographicalName());
 
-		properties.add("railwayLinkSequenceId", value.getRailwayLinkSequenceId());
+		properties.add("linkSeqId", value.getRailwayLinkSequenceId());
 
 		builder.add("properties", properties);
 

@@ -26,14 +26,14 @@ public class RailwayLineToJsonObjectConverter implements
 				.createObjectBuilder();
 
 		properties.add("id", value.getId());
-		properties.add("geographicalName", value.getGeographicalName());
-		properties.add("railwayLineCode", value.getRailwayLineCode());
+		properties.add("name", value.getGeographicalName());
+		properties.add("code", value.getRailwayLineCode());
 		final JsonArrayBuilder railwayLinkIdsBuilder = JsonProvider.provider()
 				.createArrayBuilder();
 		for (String railwayLinkId : value.getRailwayLinkIds()) {
 			railwayLinkIdsBuilder.add(railwayLinkId);
 		}
-		properties.add("railwayLinkIds", railwayLinkIdsBuilder.build());
+		properties.add("linkIds", railwayLinkIdsBuilder.build());
 		builder.add("properties", properties);
 
 		JsonObjectBuilder geometryBuilder = JsonProvider.provider()

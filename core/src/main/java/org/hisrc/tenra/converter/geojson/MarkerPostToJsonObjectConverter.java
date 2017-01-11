@@ -27,9 +27,9 @@ public class MarkerPostToJsonObjectConverter implements
 				.createObjectBuilder();
 
 		properties.add("id", value.getId());
-		properties.add("railwayLineId", value.getRailwayLineId());
-		properties.add("railwayLineCode", value.getRailwayLineCode());
-		properties.add("railwayLineGeographicalName",
+		properties.add("lineId", value.getRailwayLineId());
+		properties.add("lineCode", value.getRailwayLineCode());
+		properties.add("lineName",
 				value.getRailwayLineGeographicalName());
 		properties.add("location", value.getLocation());
 
