@@ -22,8 +22,8 @@ which can be processed by most of the GIS tools out there.
 
 # Usage
 
-* Download and extract [DB_Inspire_XML.zip](http://data.deutschebahn.com/datasets/streckennetz/DB_Inspire_XML.zip) from the [DB Open Data Portal](http://data.deutschebahn.com) [here](http://data.deutschebahn.com/datasets/streckennetz/).
-* You'll get an XML file like `DB-Netz_INSPIRE_20131128.xml`
+* Download and extract [DB_Inspire_XML.zip](http://download-data.deutschebahn.com/static/datasets/streckennetz/) from the [DB Open Data Portal](http://data.deutschebahn.com) [here](http://data.deutschebahn.com/datasets/streckennetz/).
+* You'll get an XML file like `DB_Inspire_XML_2015.zip`
 * Use `tenra-<VERSION>.jar` to convert the extracted XML file:  
 ```
 java -jar tenra-<VERSION>.jar DB-Netz_INSPIRE_20131128.xml
