@@ -47,11 +47,4 @@
 			<artifactId>inspire-tn-ra-v_3_0</artifactId>
 		</dependency>
 	</dependencies>
-	<build>
-    <testResources>
-        <testResource>
-            <directory>${project.basedir}/src/test/resources</directory>
-        </testResource>
-    </testResources>
-	</build>
 </project>
